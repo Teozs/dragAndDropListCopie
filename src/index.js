@@ -39,7 +39,7 @@ function getLocalStorage() {
     return obj;
 }
 
-function clearLocalStorage(){
+function clearLocalStorage() {
     window.localStorage.clear();
 }
 
@@ -51,18 +51,17 @@ function cleanInputs() {
 }
 
 function createItem(name, price, container, array) {
-    const li = document.createElement("li") 
-    li.classList.add("list--item")
-
+    const li = document.createElement("li");
+    li.classList.add("list--item");
     li.setAttribute("data-index", array.length);
     
     li.innerHTML = `
-    <span>${nodesItem.length}</span>
-    <div class="item--draggable" draggable="true">
-        <p>${name}</p>
-        <p>${price}$</p>
-        <span>...</span>
-    </div>
+      <span>${array.length}</span>
+      <div class="item--draggable" draggable="true">
+          <p>${name}</p>
+          <p>${price}$</p>
+          <span>...</span>
+      </div>
     `;
 
     array.push(li);
@@ -72,11 +71,6 @@ function createItem(name, price, container, array) {
 
 function dragStart() {
     startPosition = Number(this.closest("li").getAttribute("data-index"));
-}
-function dragDrop() {
-   finalPosition = Number(this.getAttribute("data-index"));
-   
-   swapItems(startPosition, finalPosition);
 }
 
 function dragOver(e) {
@@ -89,6 +83,11 @@ function dragEnter() {
 
 function dragLeave() {
     this.classList.remove("over");
+}
+
+function dragDrop() {
+   finalPosition = Number(this.getAttribute("data-index"));
+   swapItems(startPosition, finalPosition);
 }
 
 function swapItems(startPosition, finalPosition){
@@ -120,7 +119,7 @@ function addEvents(node) {
 const API = "https://api.escuelajs.co/api/v1/products"
 const onlineButton = document.querySelector("#online-button");
 
-function fetchData(APIWithQuery){
+function fetchData(APIWithQuery) {
     //CAMBIAR POR ASIND AWAIT
     fetch(APIWithQuery)
      .then((data) => data.json())
@@ -134,5 +133,5 @@ function fetchData(APIWithQuery){
 fetchData(`${API}?offset=0&limit=10`);
 
 onlineButton.addEventListener("click", () =>{
-    fetchData(`${API}?offset=5&limit=15`)
+    fetchData(`${API}?offset=5&limit=15`);
 });
